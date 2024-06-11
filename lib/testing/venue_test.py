@@ -102,9 +102,22 @@ class TestVenue:
         band = Band(name="boygenius", hometown="NYC")
         venue = Venue(name="Theatre", city="NYC")
         venue2 = Venue(name="Ace of Spades", city="SAC")
-        band.play_in_venue(venue=venue, date="Nov 22")
-        band.play_in_venue(venue=venue2, date="Nov 27")
+        concert_1 = band.play_in_venue(venue=venue, date="Nov 22")
+        concert_2 = band.play_in_venue(venue=venue2, date="Nov 27")
 
-        assert venue.concert_on("Nov 22") == band.concerts[0]
-        assert venue2.concert_on("Nov 27") == band.concerts[1]
+        assert venue.concert_on("Nov 22") == concert_1
+        assert venue2.concert_on("Nov 27") == concert_2
         assert venue.concert_on("Nov 25") is None
+
+    # Uncommented lines
+    def test_name_must_be_non_empty_string(self):
+        with pytest.raises(ValueError):
+            Venue(name=7, city="NYC")
+        with pytest.raises(ValueError):
+            Venue(name="", city="NYC")
+
+    def test_city_must_be_non_empty_string(self):
+        with pytest.raises(ValueError):
+            Venue(name="Theatre", city=7)
+        with pytest.raises(ValueError):
+            Venue(name="Theatre", city="")

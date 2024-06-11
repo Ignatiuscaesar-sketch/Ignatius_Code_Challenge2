@@ -73,3 +73,15 @@ class TestBand:
             band.all_introductions()[0]
             == "Hello NYC!!!!! We are boygenius and we're from NYC"
         )
+
+    def test_name_must_be_non_empty_string(self):
+        with pytest.raises(ValueError):
+            Band(name=7, hometown="NYC")
+        with pytest.raises(ValueError):
+            Band(name="", hometown="NYC")
+
+    def test_hometown_must_be_non_empty_string(self):
+        with pytest.raises(ValueError):
+            Band(name="boygenius", hometown=7)
+        with pytest.raises(ValueError):
+            Band(name="boygenius", hometown="")
